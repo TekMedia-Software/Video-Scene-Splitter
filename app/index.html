@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon-96x96.png') }}" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='favicon.svg') }}" />
+    <link rel="shortcut icon"  href="{{ url_for('static', filename='favicon.ico') }}" />
+    <link rel="apple-touch-icon" sizes="180x180"  href="{{ url_for('static', filename='apple-touch-icon.png') }}"/>
+    <title>TekMedia's Video Scene Splitter</title>
+    <style>
+        #loading {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+        #loading img {
+            width: 115px;
+            height: 115px;
+        }
+        .main-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .back-btn {
+            margin-top: 20px;
+            padding: 5px 16px;
+            background-color: #1a88ff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            align-items: center;
+        }
+        .back-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header" id="headerSection">
+            <img src="{{ url_for('static', filename='Logo.png') }}" alt="Logo" class="logo">
+            <br>
+            <br>
+            <h1>VIDEO SCENE SPLITTER</h1>
+            <p>Upload a video file to detect and split scenes seamlessly.</p>
+        </div>
+
+        <div class="upload-container" id="uploadContainer">
+            <form id="uploadForm" action="/upload" method="POST" enctype="multipart/form-data">
+                <div class="input-group">
+                    <input type="file" name="file" accept=".mp4, .avi, .mov, .ts, .mkv" required>
+                </div>
+                <div class="threshold-container">
+                    <label for="threshold">Scene Detection Threshold:
+                        <span class="info-icon" data-tooltip="Video is split into a scene when difference between consecutive
+                        frames is greater than the threshold">i</span>
+                    </label>
+                    <input type="number" id="threshold" name="threshold" step="0.1" min="0" max="1" value="0.4">
+                </div>
+                <button type="submit" class="upload-btn">Upload and Process</button>
+            </form>
+        </div>
+
+        <!-- Loading Spinner -->
+        <div id="loading">
+            <img src="../static/loading.gif" alt="Loading...">
+        </div>
+
+        {% if scenes %}
+        <div class="scenes-container" id="scenesContainer">
+            <h2>EXTRACTED SCENES</h2>
+            <br>
+            <div class="scenes-list">
+                {% for scene in scenes %}
+                <div class="scene-item">
+                    <video controls>
+                        <source src="{{ url_for('static', filename=scene) }}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="scene-actions">
+                        <a href="{{ url_for('static', filename=scene) }}" download>Download</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- Back button -->
+            <br>
+            <button style="font-size: 14px;" class="back-btn" id="backButton">Back ↩</button>
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        // Show loading spinner on form submit
+        const form = document.getElementById('uploadForm');
+        const loading = document.getElementById('loading');
+        const headerSection = document.getElementById('headerSection');
+        const uploadContainer = document.getElementById('uploadContainer');
+        const scenesContainer = document.getElementById('scenesContainer');
+        const backButton = document.getElementById('backButton');
+
+        form.addEventListener('submit', function() {
+            // Show the loading spinner
+            loading.style.display = 'block';
+        });
+
+        // Remove video elements that fail to load
+        document.querySelectorAll('video').forEach(video => {
+            video.addEventListener('error', () => {
+                video.parentElement.style.display = 'none'; // Hide the parent container
+            });
+        });
+
+        // Handle the back button click
+        backButton.addEventListener('click', function() {
+            // Show the initial state again (header and upload form)
+            headerSection.style.display = 'block';
+            uploadContainer.style.display = 'block';
+            // Hide the scenes section
+            scenesContainer.style.display = 'none';
+        });
+
+        // If scenes are shown, hide the upload form but keep the header visible
+        if (scenesContainer) {
+            uploadContainer.style.display = 'none'; // Hide upload form
+        }
+    </script>
+
+</body>
+</html>

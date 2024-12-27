@@ -1,0 +1,212 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Main Container */
+.main-container {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f0f4f8;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Header Styling */
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+
+h1 {
+    font-size: 28px;
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+/* Upload Container */
+.upload-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.input-group {
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    padding:10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.threshold-container {
+    margin: 10px 0;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+input[type="number"] {
+    padding: 8px;
+    width: 60px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.upload-btn {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bolder;
+    font-size: 16px;
+}
+
+.upload-btn:hover {
+    background-color: #0056b3;
+}
+
+/* Scenes List */
+.scenes-container {
+    margin-left: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+.scenes-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 50px 150px; 
+    justify-content: left;
+    align-items: left;
+}
+
+.scene-item {
+    text-align: center;
+    flex: 1 1 200px;
+    max-width: 220px;
+    justify-content: center;
+    align-items: center;
+}
+
+video {
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    justify-content: center;
+    align-items: center;
+    width: 300px;                 /* Set the width */
+    height: 170px;                /* Set the height */
+    object-fit: contain;          /* Maintain aspect ratio and add black bars */
+    background-color: black;      /* Add black background for empty space */
+}
+
+.scene-actions {
+    display: inline-flex;          /* Make it inline and allow flex behavior */
+    justify-content: center;       /* Center the text/content horizontally */
+    align-items: center;           /* Center the text/content vertically */
+    padding: 6px 15px;            /* Add padding inside the button */
+    margin-top: 0px;               /* Top margin */
+    margin-left: 70px;             /* Left margin */
+    background-color: #007BFF;     /* Set background color (blue) */
+    color: white !important;
+    border: none;                  /* Remove border */
+    border-radius: 5px;            /* Rounded corners */
+    font-size: 16px;               /* Set font size */
+    cursor: pointer;              /* Change cursor to pointer to indicate it's clickable */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Add smooth transition effects */
+}
+
+/* Hover effect */
+.scene-actions:hover {
+    background-color: #0056b3;     /* Darken the background color when hovered */
+    transform: scale(1.05);         /* Slightly scale the button on hover for a nice effect */
+    color: white !important;
+}
+
+/* Remove any blue color change when the button is active (clicked) */
+.scene-actions:active {
+    background-color: #007BFF;     /* Keep the background color blue even when clicked */
+    transform: scale(1);           /* Reset the scaling effect when clicked */
+    color: white !important;
+}
+
+/* Optional: Focus effect for accessibility (when clicked) */
+.scene-actions:focus {
+    outline: none;                 /* Remove default focus outline */
+    box-shadow: 0 0 0 3px rgba(38, 143, 255, 0.5); /* Add a custom focus ring */
+    color: white !important;
+}
+
+a {
+    color: white !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+/* Info Icon Styling */
+.info-icon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background-color: #007BFF;
+    color: white;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: 5px;
+    position: relative;
+  }
+  
+  /* Tooltip Styling */
+  .info-icon::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 125%; /* Position above the icon */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #555;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    visibility: hidden; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.3s;
+    white-space: nowrap;
+    font-size: 15px;
+  }
+  
+  /* Show Tooltip on Hover */
+  .info-icon:hover::after {
+    visibility: visible;
+    opacity: 1;
+  }
+  
+  
+  
